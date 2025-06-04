@@ -1,0 +1,9 @@
+package Comidas;
+public class FileDeFrango extends Alimento{
+    public FileDeFrango() {
+        this.setNome("Filé de Frango");
+        this.setPoints(60);
+        this.setTipo(AlimentoTipoEnum.Carne);
+        this.quantidade = 0;
+    }
+}
