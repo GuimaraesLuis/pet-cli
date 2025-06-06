@@ -1,4 +1,8 @@
 package Paineis;
+import Bebidas.Agua;
+import Bebidas.AguaCoco;
+import Comidas.DelGato;
+import Comidas.FileDeFrango;
 import Fauna.Animais;
 import Models.Rectangle;
 import Pessoa.Dono;
@@ -14,7 +18,7 @@ public class Paineljogo {
     PainelConfig painelConfig;
     PainelConfig painelStore;
 
-    public void PinelGame(Animais animal, JFrame Painel, Dono d) {
+    public void PanelGame(Animais animal, JFrame Painel, Dono d) {
         JLabel iconFome = new ScreenBuilder().iconBuilder("fome.png", new Rectangle(40, 40, 120, 10), new Rectangle(30, 30));
         JLabel textFome = new ScreenBuilder().textBuilder(animal.getFome() + "%", new Rectangle(100, 100, 165, -15), 18, null);
         JLabel iconSede = new ScreenBuilder().iconBuilder("sede.png", new Rectangle(40, 40, 230, 10), new Rectangle(30, 30));
@@ -44,14 +48,14 @@ public class Paineljogo {
                 JButton buttonComidas = new ScreenBuilder().buttonBilder(new Models.Rectangle(40, 40, 20, 100), null , Color.darkGray, null, new ImageIcon("./imagens/Comidas.png"));
                 //comidas
                 JLabel iconCarne = new ScreenBuilder().iconBuilder("Filé.png", new Models.Rectangle(180, 240, 110, 80), new Models.Rectangle(370, 436));// X, Y, largura, altura
-                JLabel iconRaçãoDog = new ScreenBuilder().iconBuilder("RaçãoCachorro.png", new Models.Rectangle(180, 240, 310, 80), new Models.Rectangle(370, 436));
-                JButton buttonComprarFilé = new BotoesComprar().buttonFilé(d);
-                JButton buttonComprarRacao = new BotoesComprar().buttonRacao();
+                JLabel iconRacaoDog = new ScreenBuilder().iconBuilder("RaçãoCachorro.png", new Models.Rectangle(180, 240, 310, 80), new Models.Rectangle(370, 436));
+                JButton buttonComprarFile = new BotoesComprar().buttonComprarComida(new Rectangle(110, 40, 155, 315), d, new FileDeFrango());
+                JButton buttonComprarRacao = new BotoesComprar().buttonComprarComida(new Rectangle(110, 40, 360, 315), d, new DelGato());
                 //Bebidas
                 JLabel iconAgua = new ScreenBuilder().iconBuilder("AguaProduto.png", new Models.Rectangle(180, 240, 110, 80), new Models.Rectangle(370, 436));// X, Y, largura, altura
                 JLabel iconAguaCoco = new ScreenBuilder().iconBuilder("cocoProduto.png", new Models.Rectangle(180, 240, 310, 80), new Models.Rectangle(370, 436));
-                JButton buttonComprarAgua = new BotoesComprar().buttonAgua();
-                JButton buttonComprarCoco = new BotoesComprar().buttonCoco();
+                JButton buttonComprarAgua = new BotoesComprar().buttonComprarAgua(new Rectangle(110, 40, 155, 315), d, new Agua());
+                JButton buttonComprarCoco = new BotoesComprar().buttonComprarAgua(new Rectangle(110, 40, 360, 315), d, new AguaCoco());
                 buttonBebidas.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
@@ -59,9 +63,9 @@ public class Paineljogo {
                         Painel.add(iconAgua);
                         Painel.add(iconAguaCoco);
                         Painel.remove(iconCarne);
-                        Painel.remove(iconRaçãoDog);
+                        Painel.remove(iconRacaoDog);
                         Painel.remove(buttonComprarRacao);
-                        Painel.remove(buttonComprarFilé);
+                        Painel.remove(buttonComprarFile);
                         Painel.add(buttonComprarAgua);
                         Painel.add(painelStore);
                         Painel.repaint();
@@ -78,12 +82,12 @@ public class Paineljogo {
                         Painel.remove(buttonPaisagem);
                         Painel.remove(buttonComidas);
                         Painel.remove(buttonComprarRacao);
-                        Painel.remove(buttonComprarFilé);
+                        Painel.remove(buttonComprarFile);
                         Painel.remove(painelPesquisa);
                         Painel.remove(button);
                         Painel.remove(buttonBebidas);
                         Painel.remove(iconCarne);
-                        Painel.remove(iconRaçãoDog);
+                        Painel.remove(iconRacaoDog);
                         Painel.add(buttonEngrenagem);
                         Painel.add(iconSede);
                         Painel.add(textSede);
@@ -102,10 +106,10 @@ public class Paineljogo {
                         Painel.remove(iconAgua);
                         Painel.remove(iconAguaCoco);
                         Painel.remove(buttonComprarAgua);
-                        Painel.add(iconRaçãoDog);
+                        Painel.add(iconRacaoDog);
                         Painel.add(iconCarne);
                         Painel.add(buttonComprarRacao);
-                        Painel.add(buttonComprarFilé);
+                        Painel.add(buttonComprarFile);
                         Painel.add(painelStore);
                         Painel.repaint();
                     }
@@ -183,6 +187,15 @@ public class Paineljogo {
             }
         };
         timer.scheduleAtFixedRate(tarefa, 0L, 3 * 60 * 1000L);
+
+        /*Timer timerSave = new Timer(){
+            TimerTask save = new TimerTask() {
+                @Override
+                public void run() {
+
+                }
+        };*/
+
         //considerações finais
         Painel.add(textEnergia);
         Painel.add(buttonSair);

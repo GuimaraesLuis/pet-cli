@@ -1,11 +1,15 @@
 package Utils;
 import Fauna.Animais;
 import Models.Rectangle;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 
 public class ScreenBuilder{
     public JLabel iconBuilder(String icon, Rectangle rectangle, Rectangle imageSize){
@@ -85,5 +89,18 @@ public class ScreenBuilder{
         b.setVerticalTextPosition(SwingConstants.BOTTOM); // Ícone em cima, texto embaixo
 
         return b;
+        }
+
+        public String serenizarHash(HashMap<String, Integer> hashMap) throws JsonProcessingException {
+            ObjectMapper mapper = new ObjectMapper();
+            String json = mapper.writeValueAsString(hashMap);
+            return json;
+        }
+
+        public HashMap<String, Integer> desserenizarHash(String json) throws JsonProcessingException {
+        ObjectMapper mapper = new ObjectMapper();
+            HashMap<String, Integer> map = mapper.readValue(json,
+                    new TypeReference<HashMap<String, Integer>>() {});
+            return map;
         }
     }

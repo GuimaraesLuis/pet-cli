@@ -1,10 +1,14 @@
 package BancoDados;
 import Fauna.Animais;
 import Pessoa.Dono;
+import Utils.ScreenBuilder;
+import com.fasterxml.jackson.core.JsonProcessingException;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.HashMap;
 
 public class addAoBanco {
     public Dono adicionarPessoa(Dono pessoa) throws SQLException {
@@ -57,19 +61,22 @@ public class addAoBanco {
                 "fome," +
                 "energia," +
                 "sede," +
-                "tipo) VALUES (?,?,?,?,?,?)" +
+                "tipo," +
+                "inventario) VALUES (?,?,?,?,?,?,?)" +
                 ";";
 
         PreparedStatement preparedStatement = ConectionBase.getConnection().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
         try {
             Dono dono = new PesquisasBanco().pesquisarPessoa(pet.getDono());
+            HashMap<String, Integer> hashMap = dono.getInventario();
             preparedStatement.setString(1, pet.getNome());
             preparedStatement.setInt(2, dono.getId());
             preparedStatement.setInt(3, pet.getFome());
             preparedStatement.setInt(4, pet.getEnergia());
             preparedStatement.setInt(5, pet.getSede());
             preparedStatement.setString(6, String.valueOf(pet.getTipo()));
+            preparedStatement.setString(7, new ScreenBuilder().serenizarHash(hashMap));
             int result = preparedStatement.executeUpdate();
             if(result == 1){
                 System.out.println("Pet inserido");
@@ -82,7 +89,9 @@ public class addAoBanco {
             }
         }catch (SQLException e){
             e.printStackTrace();
-        }finally {
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        } finally {
             try{
                 if(preparedStatement != null){
                     preparedStatement.close();

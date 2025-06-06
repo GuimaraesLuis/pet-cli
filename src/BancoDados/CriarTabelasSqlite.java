@@ -30,7 +30,8 @@ public class CriarTabelasSqlite {
                 "fome integer NOT NULL," +
                 "energia integer NOT NULL," +
                 "sede integer NOT NULL," +
-                "tipo text NOT NULL" +
+                "tipo text NOT NULL," +
+                "inventario text NOT NULL" +
                 ")";
 
         try{

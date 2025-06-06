@@ -75,7 +75,7 @@ public class Main {
                             pessoa[0] = new PesquisasBanco().pesquisarLogin(nome, senha);
                             if ( pessoa[0]!= null){
                                 painelLogin.dispose();
-                                new Paineljogo().PinelGame(pessoa[0].getPet(), painelJogo, pessoa[0]);
+                                new Paineljogo().PanelGame(pessoa[0].getPet(), painelJogo, pessoa[0]);
                             }else{
                              textLogo.setText("Conta nao encontrada!");
                             }
@@ -125,7 +125,7 @@ public class Main {
                         }catch (SQLException ex){
                             ex.printStackTrace();
                         }
-                        new Paineljogo().PinelGame(dog[0], painelJogo, pessoa[0]);
+                        new Paineljogo().PanelGame(dog[0], painelJogo, pessoa[0]);
                     } else {
                         textLogo.setText("Digite pelo-menos 4 letras!");
                     }
@@ -152,7 +152,7 @@ public class Main {
                         }catch (SQLException ex){
                             ex.printStackTrace();
                         }
-                        new Paineljogo().PinelGame(cat[0], painelJogo, pessoa[0]);
+                        new Paineljogo().PanelGame(cat[0], painelJogo, pessoa[0]);
                     } else {
                         textLogo.setText("Digite pelo-menos 4 letras!");
                     }

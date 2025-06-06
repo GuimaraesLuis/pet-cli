@@ -9,5 +9,8 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="github.weisj.jsvg" level="project" />
     <orderEntry type="library" name="mysql-connector-j-9.2.0" level="project" />
+    <orderEntry type="library" name="jackson-databind-2.16.1" level="project" />
+    <orderEntry type="library" name="jackson-core-2.16.1" level="project" />
+    <orderEntry type="library" name="jackson-annotations-2.16.1" level="project" />
   </component>
 </module>

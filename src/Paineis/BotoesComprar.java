@@ -1,6 +1,8 @@
 package Paineis;
+import Bebidas.Bebida;
 import Comidas.Alimento;
 import Comidas.FileDeFrango;
+import Models.Rectangle;
 import Pessoa.Dono;
 import Utils.ScreenBuilder;
 import javax.swing.*;
@@ -9,51 +11,27 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class BotoesComprar {
-    public JButton buttonFilé(Dono d){
-        JButton buttonComprarFile = new ScreenBuilder().buttonBilder(new Models.Rectangle(110, 40, 155, 315), "Comprar", new Color(115, 115, 115), Color.white, null);
-        buttonComprarFile.addActionListener(new ActionListener() {
+    public JButton buttonComprarComida(Rectangle rectangle, Dono d, Alimento alimento){
+        JButton buttonComprar = new ScreenBuilder().buttonBilder(new Models.Rectangle(rectangle.w, rectangle.h, rectangle.x, rectangle.y), "Comprar", new Color(115, 115, 115), Color.white, null);
+        buttonComprar.addActionListener(new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
-            FileDeFrango file = new FileDeFrango();
-         d.getInventario().put(file.getNome(), d.getInventario().getOrDefault(file.getNome(), 0)+1);
-
+         d.getInventario().put(alimento.getNome(), d.getInventario().getOrDefault(alimento.getNome(), 0)+1);
+            System.out.println(d.getInventario());
         }
     });
-    return  buttonComprarFile;
+    return  buttonComprar;
     }
 
-    public JButton buttonRacao(){
-        JButton buttonComprarRacao = new ScreenBuilder().buttonBilder(new Models.Rectangle(110, 40, 360, 315), "Comprar", new Color(115, 115, 115), Color.white, null);
-        buttonComprarRacao.addActionListener(new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-
-        }
-    });
-    return buttonComprarRacao;
-    }
-
-    public JButton buttonAgua() {
-        JButton buttonComprarAgua = new ScreenBuilder().buttonBilder(new Models.Rectangle(110, 40, 155, 315), "Comprar", new Color(115, 115, 115), Color.white, null);
-        buttonComprarAgua.addActionListener(new ActionListener() {
+    public JButton buttonComprarAgua(Rectangle rectangle, Dono d, Bebida bebida) {
+        JButton buttonComprar = new ScreenBuilder().buttonBilder(new Models.Rectangle(rectangle.w, rectangle.h, rectangle.x, rectangle.y), "Comprar", new Color(115, 115, 115), Color.white, null);
+        buttonComprar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+            d.getInventario().put(bebida.getNome(), d.getInventario().getOrDefault(bebida.getNome(), 0)+ 1);
+                System.out.println(d.getInventario());
             }
         });
-        return buttonComprarAgua;
+        return buttonComprar;
     }
-
-    public JButton buttonCoco(){
-        JButton buttonComprarCoco = new ScreenBuilder().buttonBilder(new Models.Rectangle(110, 40, 360, 315), "Comprar", new Color(115, 115, 115), Color.white, null);
-        buttonComprarCoco.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-            }
-        });
-        return buttonComprarCoco;
-    }
-
-
 }
