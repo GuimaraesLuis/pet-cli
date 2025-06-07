@@ -18,7 +18,8 @@ public class addAoBanco {
                 "nome," +
                 "senha," +
                 "pet," +
-                "inventario) VALUES(?,?,?,?)" +
+                "inventario," +
+                "coins) VALUES(?,?,?,?,?)" +
                 ";";
 
         PreparedStatement preparedStatement = ConectionBase.getConnection().prepareStatement(sqlInsert, Statement.RETURN_GENERATED_KEYS);
@@ -29,6 +30,7 @@ public class addAoBanco {
             preparedStatement.setString(2, pessoa.getSenha());
             preparedStatement.setString(3, pessoa.getPet().getNome());
             preparedStatement.setString(4, new ScreenBuilder().serenizarHash(hashMap));
+            preparedStatement.setFloat(5, pessoa.getCoins());
 
             int result = preparedStatement.executeUpdate();
             if(result == 1){

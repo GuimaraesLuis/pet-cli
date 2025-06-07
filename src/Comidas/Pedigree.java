@@ -4,5 +4,6 @@ public class Pedigree extends Alimento {
         this.setPoints(15);
         this.setNome("Ração Pedigree");
         this.setTipo(AlimentoTipoEnum.Racao);
+        this.setCusto(80);
     }
 }

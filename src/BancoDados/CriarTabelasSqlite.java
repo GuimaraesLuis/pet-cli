@@ -12,7 +12,8 @@ public class CriarTabelasSqlite {
                 "nome text NOT NULL," +
                 "senha text NOT NULL," +
                 "pet text NOT NULL," +
-                "inventario text NOT NULL" +
+                "inventario text NOT NULL," +
+                "coins float NOT NULL" +
                 ")";
         try{
             Connection connection = ConectionBase.getConnection();

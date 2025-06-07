@@ -1,7 +1,7 @@
 package Comidas;
 public abstract class Alimento {
     protected String nome;
-    protected double quantidade;
+    protected float custo;
     protected int points;
     protected AlimentoTipoEnum tipo;
 
@@ -21,14 +21,13 @@ public abstract class Alimento {
         this.nome = nome;
     }
 
-    public double getQuantidade() {
-        return quantidade;
+    public float getCusto() {
+        return custo;
     }
 
-    public void setQuantidade(double quantidade) {
-        this.quantidade = quantidade;
+    public void setCusto(float custo) {
+        this.custo = custo;
     }
-
     public AlimentoTipoEnum getTipo() {
         return tipo;
     }

@@ -4,6 +4,6 @@ public class FileDeFrango extends Alimento{
         this.setNome("Filé de Frango");
         this.setPoints(60);
         this.setTipo(AlimentoTipoEnum.Carne);
-        this.quantidade = 0;
+        this.setCusto(50);
     }
 }

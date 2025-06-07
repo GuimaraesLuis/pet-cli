@@ -2,8 +2,8 @@ package Paineis;
 import BancoDados.AttBancoDados;
 import Bebidas.Agua;
 import Bebidas.AguaCoco;
-import Comidas.DelGato;
 import Comidas.FileDeFrango;
+import Comidas.Pedigree;
 import Fauna.Animais;
 import Models.Rectangle;
 import Pessoa.Dono;
@@ -39,19 +39,19 @@ public class Paineljogo {
         buttonLoja.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                painelStore = new PainelConfig(30, 30, new Color(0x555554));
-                PainelConfig painelPesquisa = new PainelConfig(30, 30, Color.DARK_GRAY);
+                painelStore = new PainelConfig(30, 30, new Color(0xD3D3D3));
+                PainelConfig painelPesquisa = new PainelConfig(30, 30, new Color(0xB7B7B7));
                 painelPesquisa.setBounds(13, 30, 50, 400);
-                JButton button = new ScreenBuilder().buttonBilder(new Rectangle(30, 30, 22, 40), null, Color.DARK_GRAY, null, new ImageIcon("./imagens/fechar.png"));
+                JButton button = new ScreenBuilder().buttonBilder(new Rectangle(30, 30, 22, 40), null, new Color(0xB7B7B7), null, new ImageIcon("./imagens/fechar.png"));
                 //barra lateral
-                JButton buttonBebidas = new ScreenBuilder().buttonBilder(new Models.Rectangle(40, 40, 20, 200), null, Color.DARK_GRAY, null, new ImageIcon("./imagens/Bebidas.png"));
-                JButton buttonPaisagem = new ScreenBuilder().buttonBilder(new Models.Rectangle(40, 40, 20, 300), null, Color.DARK_GRAY, null, new ImageIcon("./imagens/cenario.png"));
-                JButton buttonComidas = new ScreenBuilder().buttonBilder(new Models.Rectangle(40, 40, 20, 100), null , Color.darkGray, null, new ImageIcon("./imagens/Comidas.png"));
+                JButton buttonBebidas = new ScreenBuilder().buttonBilder(new Models.Rectangle(40, 40, 18, 200), null, new Color(0xB7B7B7), null, new ImageIcon("./imagens/Bebidas.png"));
+                JButton buttonPaisagem = new ScreenBuilder().buttonBilder(new Models.Rectangle(40, 40, 18, 300), null, new Color(0xB7B7B7), null, new ImageIcon("./imagens/cenario.png"));
+                JButton buttonComidas = new ScreenBuilder().buttonBilder(new Models.Rectangle(40, 40, 18, 100), null , new Color(0xB7B7B7), null, new ImageIcon("./imagens/Comidas.png"));
                 //comidas
                 JLabel iconCarne = new ScreenBuilder().iconBuilder("Filé.png", new Models.Rectangle(180, 240, 110, 80), new Models.Rectangle(370, 436));// X, Y, largura, altura
                 JLabel iconRacaoDog = new ScreenBuilder().iconBuilder("RaçãoCachorro.png", new Models.Rectangle(180, 240, 310, 80), new Models.Rectangle(370, 436));
                 JButton buttonComprarFile = new BotoesComprar().buttonComprarComida(new Rectangle(110, 40, 155, 315), d, new FileDeFrango());
-                JButton buttonComprarRacao = new BotoesComprar().buttonComprarComida(new Rectangle(110, 40, 360, 315), d, new DelGato());
+                JButton buttonComprarRacao = new BotoesComprar().buttonComprarComida(new Rectangle(110, 40, 360, 315), d, new Pedigree());
                 //Bebidas
                 JLabel iconAgua = new ScreenBuilder().iconBuilder("AguaProduto.png", new Models.Rectangle(180, 240, 110, 80), new Models.Rectangle(370, 436));// X, Y, largura, altura
                 JLabel iconAguaCoco = new ScreenBuilder().iconBuilder("cocoProduto.png", new Models.Rectangle(180, 240, 310, 80), new Models.Rectangle(370, 436));

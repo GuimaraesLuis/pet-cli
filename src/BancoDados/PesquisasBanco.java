@@ -116,9 +116,13 @@ public class PesquisasBanco {
                 dono.setName(resultSet.getString("nome"));
                 dono.setSenha(resultSet.getString("senha"));
                 dono.setPet(buscaPet(resultSet.getInt("id")));
+                dono.setInventario(new ScreenBuilder().desserenizarHash(resultSet.getString("inventario")));
+                dono.setCoins(resultSet.getFloat("coins"));
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
         } finally {
             try {
                 resultSet.close();
@@ -154,6 +158,7 @@ public Dono pesquisarLogin(String nome, String senha) throws SQLException {
                     dono.setSenha(resultSet.getString("senha"));
                     dono.setPet(buscaPet(resultSet.getInt("id")));
                     dono.setInventario(new ScreenBuilder().desserenizarHash(resultSet.getString("inventario")));
+                    dono.setCoins(resultSet.getFloat("coins"));
                 }else{
                     System.out.println("pessoa nn encontrada");
                 }

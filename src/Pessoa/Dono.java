@@ -9,6 +9,7 @@ public class Dono {
     private String senha;
     private Animais pet;
     private HashMap<String, Integer> inventario = new HashMap<>();
+    private float coins;
     public Dono() {
     }
 
@@ -17,6 +18,7 @@ public class Dono {
         this.senha = senha;
         this.pet = pet;
         this.inventario = inventario;
+        this.coins = 350;
     }
 
     public String getSenha() {
@@ -57,5 +59,13 @@ public class Dono {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public float getCoins() {
+        return coins;
+    }
+
+    public void setCoins(float coins) {
+        this.coins = coins;
     }
 }

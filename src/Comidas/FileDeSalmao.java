@@ -4,5 +4,6 @@ public class FileDeSalmao extends Alimento{
         this.setPoints(25);
         this.setNome("Salmão");
         this.setTipo(AlimentoTipoEnum.Peixes);
+        this.setCusto(0);
     }
 }

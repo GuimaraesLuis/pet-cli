@@ -2,7 +2,7 @@ package Bebidas;
 public class Bebida {
     protected String nome;
     protected int points;
-    protected int quantidade;
+    protected float custo;
 
     public String getNome() {
         return nome;
@@ -20,11 +20,11 @@ public class Bebida {
         this.points = points;
     }
 
-    public int getQuantidade() {
-        return quantidade;
+    public float getCusto() {
+        return custo;
     }
 
-    public void setQuantidade(int quantidade) {
-        this.quantidade = quantidade;
+    public void setCusto(float custo) {
+        this.custo = custo;
     }
 }

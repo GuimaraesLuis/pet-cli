@@ -28,17 +28,17 @@ public class Main {
         JFrame painelJogo = new ScreenBuilder().criarPainel(600, 700);
         //Painel de Login
         JLabel iconLogo = new ScreenBuilder().iconBuilder("logo.png", new Rectangle(400, 150, 80, 90), new Rectangle(400, 400));
-        JLabel textLogo = new ScreenBuilder().textBuilder("Bem-Vindo ao Nosso Sistema!", new Rectangle(290, 20, 155, 240), 18, new Color(0x555554));
-        JLabel textLogin = new ScreenBuilder().textBuilder("Login:", new Rectangle(270, 20, 155, 280), 18, new Color(0x555554));
-        JLabel textSenha = new ScreenBuilder().textBuilder("Senha:", new Rectangle(270, 20, 150, 320), 18, new Color(0x555554));
-        JTextField campodeTextLogin = new ScreenBuilder().capoDeTexto(new Rectangle(210, 280, 190, 20), new Color(0x555554));
+        JLabel textLogo = new ScreenBuilder().textBuilder("Bem-Vindo ao Nosso Sistema!", new Rectangle(290, 20, 155, 240), 18,  new Color(0x80, 0x80, 0x80));
+        JLabel textLogin = new ScreenBuilder().textBuilder("Login:", new Rectangle(270, 20, 155, 280), 18,  new Color(0x80, 0x80, 0x80));
+        JLabel textSenha = new ScreenBuilder().textBuilder("Senha:", new Rectangle(270, 20, 150, 320), 18,  new Color(0x80, 0x80, 0x80));
+        JTextField campodeTextLogin = new ScreenBuilder().capoDeTexto(new Rectangle(210, 280, 190, 20),  new Color(0x80, 0x80, 0x80));
         campodeTextLogin.setFont(new FontePersonalizada().FonPixelada(13f));
         campodeTextLogin.setForeground(Color.lightGray);
-        JTextField campodeTextSenha = new ScreenBuilder().capoDeTexto(new Rectangle(210, 320, 190, 20), new Color(0x555554));
+        JTextField campodeTextSenha = new ScreenBuilder().capoDeTexto(new Rectangle(210, 320, 190, 20),  new Color(0x80, 0x80, 0x80));
         campodeTextSenha.setFont(new FontePersonalizada().FonPixelada(13f));
         campodeTextSenha.setForeground(Color.lightGray);
         //botao de registrar
-        JButton buttoRegistrar = new ScreenBuilder().buttonBilder(new Rectangle(95, 30, 210, 360), "Registrar", new Color(0x555554), Color.lightGray, null);
+        JButton buttoRegistrar = new ScreenBuilder().buttonBilder(new Rectangle(95, 30, 210, 360), "Registrar",  new Color(0x80, 0x80, 0x80), Color.lightGray, null);
         buttoRegistrar.setFont(new FontePersonalizada().FonPixelada(13f));
         buttoRegistrar.addActionListener(new ActionListener() {
             @Override
@@ -58,12 +58,12 @@ public class Main {
                         textLogo.setText("Nao deixe nenhum campo vazio!");
                     }
                 }else{
-                    textLogo.setText("Nome ja existe!");
+                   textLogo.setText("Nome ja existe!");
                 }
             }
         });
         //Botao de Login
-        JButton buttonLogin = new ScreenBuilder().buttonBilder(new Rectangle(90, 30, 310, 360), "Entrar", new Color(0x555554), Color.lightGray, null);
+        JButton buttonLogin = new ScreenBuilder().buttonBilder(new Rectangle(90, 30, 310, 360), "Entrar",  new Color(0x80, 0x80, 0x80), Color.lightGray, null);
         buttonLogin.setFont(new FontePersonalizada().FonPixelada(13f));
         buttonLogin.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -102,10 +102,10 @@ public class Main {
         //Painel Criação
         ImageIcon cachorrroImage = new ImageIcon("./imagens/cachorro.png");
         ImageIcon gato = new ImageIcon("./imagens/gato.png");
-        JLabel textoCriacao = new ScreenBuilder().textBuilder("Escolha seu pet", new Rectangle(260, 60, 110, 30), 34, new Color(0x555554));
-        JLabel textoCachorro = new ScreenBuilder().textBuilder("Cao", new Rectangle(230, 60, 105, 240), 26, new Color(0x555554));
-        JLabel textoGato = new ScreenBuilder().textBuilder("Gato", new Rectangle(230, 60, 323, 240), 26, new Color(0x555554));
-        JLabel textNamePet = new ScreenBuilder().textBuilder("Nome:", new Rectangle(65, 30, 45, 305), 20, new Color(0x555554));
+        JLabel textoCriacao = new ScreenBuilder().textBuilder("Escolha seu pet", new Rectangle(260, 60, 110, 30), 34,  new Color(0x80, 0x80, 0x80));
+        JLabel textoCachorro = new ScreenBuilder().textBuilder("Cao", new Rectangle(230, 60, 105, 240), 26,  new Color(0x80, 0x80, 0x80));
+        JLabel textoGato = new ScreenBuilder().textBuilder("Gato", new Rectangle(230, 60, 323, 240), 26,  new Color(0x80, 0x80, 0x80));
+        JLabel textNamePet = new ScreenBuilder().textBuilder("Nome:", new Rectangle(65, 30, 45, 305), 20,  new Color(0x80, 0x80, 0x80));
         JTextField campoTextPet = new ScreenBuilder().capoDeTexto(new Rectangle(110, 305, 320, 30), new Color(0xF4F9FE));
         campoTextPet.setFont(new FontePersonalizada().FonPixelada(13f));
         //botao Criar cachorro

@@ -37,13 +37,15 @@ public class AttBancoDados {
         PreparedStatement preparedStatement = null;
         String sql = "UPDATE tbl_petcli" +
                 " SET " +
-                " inventario = ? " +
-                " WHERE id = ? ";
+                " inventario = ?, " +
+                " coins = ? " +
+                "WHERE id = ?";
 
         try {
             preparedStatement = ConectionBase.getConnection().prepareStatement(sql);
             preparedStatement.setString(1, new ScreenBuilder().serenizarHash(dono.getInventario()));
-            preparedStatement.setInt(2, dono.getId());
+            preparedStatement.setFloat(2, dono.getCoins());
+            preparedStatement.setInt(3, dono.getId());
             preparedStatement.executeUpdate();
             System.out.println("Pessoa Atualizada");
         }catch (SQLException e){
