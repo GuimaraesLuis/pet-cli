@@ -17,15 +17,18 @@ public class addAoBanco {
         String sqlInsert = "INSERT INTO tbl_petcli (" +
                 "nome," +
                 "senha," +
-                "pet) VALUES(?,?,?)" +
+                "pet," +
+                "inventario) VALUES(?,?,?,?)" +
                 ";";
 
         PreparedStatement preparedStatement = ConectionBase.getConnection().prepareStatement(sqlInsert, Statement.RETURN_GENERATED_KEYS);
 
         try {
+            HashMap<String, Integer> hashMap = pessoa.getInventario();
             preparedStatement.setString(1, pessoa.getName());
             preparedStatement.setString(2, pessoa.getSenha());
             preparedStatement.setString(3, pessoa.getPet().getNome());
+            preparedStatement.setString(4, new ScreenBuilder().serenizarHash(hashMap));
 
             int result = preparedStatement.executeUpdate();
             if(result == 1){
@@ -39,7 +42,9 @@ public class addAoBanco {
             }
         }catch (SQLException e){
             e.printStackTrace();
-        }finally {
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        } finally {
             try{
                 if(preparedStatement != null){
                     preparedStatement.close();
@@ -61,22 +66,19 @@ public class addAoBanco {
                 "fome," +
                 "energia," +
                 "sede," +
-                "tipo," +
-                "inventario) VALUES (?,?,?,?,?,?,?)" +
+                "tipo) VALUES (?,?,?,?,?,?)" +
                 ";";
 
         PreparedStatement preparedStatement = ConectionBase.getConnection().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
         try {
             Dono dono = new PesquisasBanco().pesquisarPessoa(pet.getDono());
-            HashMap<String, Integer> hashMap = dono.getInventario();
             preparedStatement.setString(1, pet.getNome());
             preparedStatement.setInt(2, dono.getId());
             preparedStatement.setInt(3, pet.getFome());
             preparedStatement.setInt(4, pet.getEnergia());
             preparedStatement.setInt(5, pet.getSede());
             preparedStatement.setString(6, String.valueOf(pet.getTipo()));
-            preparedStatement.setString(7, new ScreenBuilder().serenizarHash(hashMap));
             int result = preparedStatement.executeUpdate();
             if(result == 1){
                 System.out.println("Pet inserido");
@@ -89,8 +91,6 @@ public class addAoBanco {
             }
         }catch (SQLException e){
             e.printStackTrace();
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
         } finally {
             try{
                 if(preparedStatement != null){

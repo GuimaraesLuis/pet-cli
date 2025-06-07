@@ -5,6 +5,8 @@ import Fauna.Cachorro;
 import Fauna.Gatos;
 import Fauna.TipoAnimal;
 import Pessoa.Dono;
+import Utils.ScreenBuilder;
+import com.fasterxml.jackson.core.JsonProcessingException;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -151,10 +153,11 @@ public Dono pesquisarLogin(String nome, String senha) throws SQLException {
                     dono.setName(resultSet.getString("nome"));
                     dono.setSenha(resultSet.getString("senha"));
                     dono.setPet(buscaPet(resultSet.getInt("id")));
+                    dono.setInventario(new ScreenBuilder().desserenizarHash(resultSet.getString("inventario")));
                 }else{
                     System.out.println("pessoa nn encontrada");
                 }
-            } catch (SQLException e) {
+            } catch (SQLException | JsonProcessingException e) {
                 e.printStackTrace();
             } finally {
                 try {

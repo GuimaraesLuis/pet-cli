@@ -11,7 +11,8 @@ public class CriarTabelasSqlite {
                 "id integer PRIMARY KEY AUTO_INCREMENT," +
                 "nome text NOT NULL," +
                 "senha text NOT NULL," +
-                "pet text NOT NULL" +
+                "pet text NOT NULL," +
+                "inventario text NOT NULL" +
                 ")";
         try{
             Connection connection = ConectionBase.getConnection();
@@ -30,8 +31,7 @@ public class CriarTabelasSqlite {
                 "fome integer NOT NULL," +
                 "energia integer NOT NULL," +
                 "sede integer NOT NULL," +
-                "tipo text NOT NULL," +
-                "inventario text NOT NULL" +
+                "tipo text NOT NULL" +
                 ")";
 
         try{

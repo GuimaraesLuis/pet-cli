@@ -1,7 +1,6 @@
 package Paineis;
 import Bebidas.Bebida;
 import Comidas.Alimento;
-import Comidas.FileDeFrango;
 import Models.Rectangle;
 import Pessoa.Dono;
 import Utils.ScreenBuilder;

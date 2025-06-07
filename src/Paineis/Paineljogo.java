@@ -1,4 +1,5 @@
 package Paineis;
+import BancoDados.AttBancoDados;
 import Bebidas.Agua;
 import Bebidas.AguaCoco;
 import Comidas.DelGato;
@@ -137,6 +138,8 @@ public class Paineljogo {
         buttonSair.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                new AttBancoDados().atualizarContaPet(d);
+                new AttBancoDados().atualizarContaPessoa(d);
                 Painel.dispose();
                 System.exit(0);
             }
@@ -188,14 +191,14 @@ public class Paineljogo {
         };
         timer.scheduleAtFixedRate(tarefa, 0L, 3 * 60 * 1000L);
 
-        /*Timer timerSave = new Timer(){
+        /*Timer timerSave = new Timer();
             TimerTask save = new TimerTask() {
                 @Override
                 public void run() {
-
+                    new AttBancoDados().atualizarContaPet(d);
                 }
-        };*/
-
+        };
+        timerSave.scheduleAtFixedRate(save,0L, 5 * 60 *1000L);*/
         //considerações finais
         Painel.add(textEnergia);
         Painel.add(buttonSair);
