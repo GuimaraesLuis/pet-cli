@@ -28,7 +28,7 @@ public class Main {
         JFrame painelJogo = new ScreenBuilder().criarPainel(600, 700);
         //Painel de Login
         JLabel iconLogo = new ScreenBuilder().iconBuilder("logo.png", new Rectangle(400, 150, 80, 90), new Rectangle(400, 400));
-        JLabel textLogo = new ScreenBuilder().textBuilder("Bem-Vindo ao Nosso Sistema!", new Rectangle(290, 20, 155, 240), 18,  new Color(0x80, 0x80, 0x80));
+        JLabel textLogo = new ScreenBuilder().textBuilder("Bem-Vindo ao Nosso Sistema!", new Rectangle(290, 20, 144, 240), 18,  new Color(0x80, 0x80, 0x80));
         JLabel textLogin = new ScreenBuilder().textBuilder("Login:", new Rectangle(270, 20, 155, 280), 18,  new Color(0x80, 0x80, 0x80));
         JLabel textSenha = new ScreenBuilder().textBuilder("Senha:", new Rectangle(270, 20, 150, 320), 18,  new Color(0x80, 0x80, 0x80));
         JTextField campodeTextLogin = new ScreenBuilder().capoDeTexto(new Rectangle(210, 280, 190, 20),  new Color(0x80, 0x80, 0x80));
