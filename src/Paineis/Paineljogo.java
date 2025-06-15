@@ -11,6 +11,9 @@ import Fauna.Animais;
 import Fauna.TipoAnimal;
 import Models.Rectangle;
 import Pessoa.Dono;
+import Sprites.Animation;
+import Sprites.CriarAnimation;
+import Sprites.Sprite;
 import Utils.ScreenBuilder;
 import javax.swing.*;
 import java.awt.*;
@@ -22,7 +25,12 @@ import java.util.TimerTask;
 public class Paineljogo {
     PainelConfig painelConfig;
     PainelConfig painelStore;
-    private JLabel iconComida1, iconComida2, iconBebida1, iconBebida2;
+    Animation animation;
+    private JLabel iconComida1;
+    private JLabel iconComida2;
+    private JLabel iconBebida1;
+    private JLabel iconBebida2;
+    private CriarAnimation animalPet;
     private JButton buttonComprarBebida, buttonComprarBebida2, buttonComprar1, buttonComprar2;
 
     public void PanelGame(Animais animal, JFrame Painel, Dono d) {
@@ -31,6 +39,7 @@ public class Paineljogo {
         JLabel iconSede = new ScreenBuilder().iconBuilder("sede.png", new Rectangle(40, 40, 230, 10), new Rectangle(30, 30));
         JLabel textSede = new ScreenBuilder().textBuilder(animal.getSede() + "%", new Rectangle(100, 100, 270, -15), 18, null);
         JLabel iconEnergia = new ScreenBuilder().iconBuilder("energia.png", new Rectangle(40, 40, 330, 10), new Rectangle(30, 30));
+        JLabel labelBemVindo = new ScreenBuilder().textBuilder("Bem-vindo a pet-store", new Rectangle(410, 110, 145, 160), 30, Color.white);
         JLabel textEnergia = new ScreenBuilder().textBuilder(animal.getEnergia() + "%", new Rectangle(100, 100, 370, -15), 18, null);
         //Butoes
         ImageIcon imagemCompras = new ImageIcon("./imagens/cesta.png");
@@ -42,50 +51,50 @@ public class Paineljogo {
         ImageIcon imagemEgrenagem = new ImageIcon("./imagens/engrenagem.png");
         JButton buttonEngrenagem = new ScreenBuilder().buttonBilder(new Rectangle(30, 30, 540, 15), null, new Color(0xF3F3F7), null, imagemEgrenagem);
         //Loja
+        TipoAnimal tipoAnimal = animal.getTipo();
+        switch (tipoAnimal){
+            case Cachorro:
+                iconComida1 = new ScreenBuilder().iconBuilder("Filé.png", new Rectangle(180, 240, 110, 80), new Rectangle(370, 436));// X, Y, largura, altura
+                iconComida2 = new ScreenBuilder().iconBuilder("RaçãoCachorro.png", new Rectangle(180, 240, 310, 80), new Rectangle(370, 436));
+                buttonComprar1 = new BotoesComprar().buttonComprarComida(new Rectangle(110, 40, 155, 315), d, new FileDeFrango(), labelBemVindo);
+                buttonComprar2 = new BotoesComprar().buttonComprarComida(new Rectangle(110, 40, 360, 315), d, new Pedigree(), labelBemVindo);
+                //bebidas
+                iconBebida1 = new ScreenBuilder().iconBuilder("AguaProduto.png", new Rectangle(180, 240, 110, 80), new Rectangle(370, 436));// X, Y, largura, altura
+                iconBebida2 = new ScreenBuilder().iconBuilder("cocoProduto.png", new Rectangle(180, 240, 310, 80), new Rectangle(370, 436));
+                buttonComprarBebida = new BotoesComprar().buttonComprarAgua(new Rectangle(110, 40, 155, 315), d, new Agua(), labelBemVindo);
+                buttonComprarBebida2 = new BotoesComprar().buttonComprarAgua(new Rectangle(110, 40, 360, 315), d, new AguaCoco(), labelBemVindo);
+
+                break;
+            case Gato:
+                iconComida1 = new ScreenBuilder().iconBuilder("sardinha.png", new Rectangle(180, 240, 110, 80), new Rectangle(370, 436));// X, Y, largura, altura
+                iconComida2 = new ScreenBuilder().iconBuilder("RacaoCat.png", new Rectangle(180, 240, 310, 80), new Rectangle(370, 436));
+                buttonComprar1 = new BotoesComprar().buttonComprarComida(new Rectangle(110, 40, 155, 315), d, new Sardinha(), labelBemVindo);
+                buttonComprar2 = new BotoesComprar().buttonComprarComida(new Rectangle(110, 40, 360, 315), d, new DelGato(), labelBemVindo);
+                //bebidas
+                iconBebida1 = new ScreenBuilder().iconBuilder("AguaProduto.png", new Rectangle(180, 240, 110, 80), new Rectangle(370, 436));// X, Y, largura, altura
+                iconBebida2 = new ScreenBuilder().iconBuilder("leite.png", new Rectangle(180, 240, 310, 80), new Rectangle(370, 436));
+                buttonComprarBebida = new BotoesComprar().buttonComprarAgua(new Rectangle(110, 40, 155, 315), d, new Agua(), labelBemVindo);
+                buttonComprarBebida2 = new BotoesComprar().buttonComprarAgua(new Rectangle(110, 40, 360, 315), d, new Leite(), labelBemVindo);
+                animalPet = new CriarAnimation(8,"IDLE",320,256);
+                animalPet.setBounds(300, 300, 350, 350);
+                animalPet.setOpaque(false);
+                Painel.add(animalPet);
+                break;
+            default:
+                return;
+        }
         buttonLoja.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 painelStore = new PainelConfig(30, 30, new Color(0xD3D3D3));
                 PainelConfig painelPesquisa = new PainelConfig(30, 30, new Color(0xB7B7B7));
                 painelPesquisa.setBounds(13, 30, 50, 400);
-                JLabel labelBemVindo = new ScreenBuilder().textBuilder("Bem-vindo a pet-store", new Rectangle(410, 110, 145, 160), 30, Color.white);
                 JButton button = new ScreenBuilder().buttonBilder(new Rectangle(30, 30, 22, 40), null, new Color(0xB7B7B7), null, new ImageIcon("./imagens/fechar.png"));
                 //barra lateral
                 JButton buttonBebidas = new ScreenBuilder().buttonBilder(new Rectangle(40, 40, 18, 200), null, new Color(0xB7B7B7), null, new ImageIcon("./imagens/Bebidas.png"));
                 JButton buttonPaisagem = new ScreenBuilder().buttonBilder(new Rectangle(40, 40, 18, 300), null, new Color(0xB7B7B7), null, new ImageIcon("./imagens/cenario.png"));
                 JButton buttonComidas = new ScreenBuilder().buttonBilder(new Rectangle(40, 40, 18, 100), null , new Color(0xB7B7B7), null, new ImageIcon("./imagens/Comidas.png"));
                 //comidas
-                 TipoAnimal tipoAnimal = animal.getTipo();
-                switch (tipoAnimal){
-                    case Cachorro:
-                         iconComida1 = new ScreenBuilder().iconBuilder("Filé.png", new Rectangle(180, 240, 110, 80), new Rectangle(370, 436));// X, Y, largura, altura
-                         iconComida2 = new ScreenBuilder().iconBuilder("RaçãoCachorro.png", new Rectangle(180, 240, 310, 80), new Rectangle(370, 436));
-                        buttonComprar1 = new BotoesComprar().buttonComprarComida(new Rectangle(110, 40, 155, 315), d, new FileDeFrango(), labelBemVindo);
-                        buttonComprar2 = new BotoesComprar().buttonComprarComida(new Rectangle(110, 40, 360, 315), d, new Pedigree(), labelBemVindo);
-                         //bebidas
-                         iconBebida1 = new ScreenBuilder().iconBuilder("AguaProduto.png", new Rectangle(180, 240, 110, 80), new Rectangle(370, 436));// X, Y, largura, altura
-                         iconBebida2 = new ScreenBuilder().iconBuilder("cocoProduto.png", new Rectangle(180, 240, 310, 80), new Rectangle(370, 436));
-                        buttonComprarBebida = new BotoesComprar().buttonComprarAgua(new Rectangle(110, 40, 155, 315), d, new Agua(), labelBemVindo);
-                        buttonComprarBebida2 = new BotoesComprar().buttonComprarAgua(new Rectangle(110, 40, 360, 315), d, new AguaCoco(), labelBemVindo);
-                         break;
-                    case Gato:
-                        iconComida1 = new ScreenBuilder().iconBuilder("sardinha.png", new Rectangle(180, 240, 110, 80), new Rectangle(370, 436));// X, Y, largura, altura
-                        iconComida2 = new ScreenBuilder().iconBuilder("RacaoCat.png", new Rectangle(180, 240, 310, 80), new Rectangle(370, 436));
-                        buttonComprar1 = new BotoesComprar().buttonComprarComida(new Rectangle(110, 40, 155, 315), d, new Sardinha(), labelBemVindo);
-                        buttonComprar2 = new BotoesComprar().buttonComprarComida(new Rectangle(110, 40, 360, 315), d, new DelGato(), labelBemVindo);
-                        //bebidas
-                        iconBebida1 = new ScreenBuilder().iconBuilder("AguaProduto.png", new Rectangle(180, 240, 110, 80), new Rectangle(370, 436));// X, Y, largura, altura
-                        iconBebida2 = new ScreenBuilder().iconBuilder("leite.png", new Rectangle(180, 240, 310, 80), new Rectangle(370, 436));
-                        buttonComprarBebida = new BotoesComprar().buttonComprarAgua(new Rectangle(110, 40, 155, 315), d, new Agua(), labelBemVindo);
-                        buttonComprarBebida2 = new BotoesComprar().buttonComprarAgua(new Rectangle(110, 40, 360, 315), d, new Leite(), labelBemVindo);
-                        break;
-                    default:
-                        return;
-                }
-
-
-                //Bebidas
-                //
 
                 buttonBebidas.addActionListener(new ActionListener() {
                     @Override
@@ -95,6 +104,7 @@ public class Paineljogo {
                         Painel.add(iconBebida1);
                         Painel.add(iconBebida2);
                         Painel.remove(iconComida1);
+                        Painel.remove(animalPet);
                         Painel.remove(iconComida2);
                         Painel.remove(buttonComprar2);
                         Painel.remove(buttonComprar1);
@@ -121,6 +131,7 @@ public class Paineljogo {
                         Painel.remove(buttonBebidas);
                         Painel.remove(iconComida1);
                         Painel.remove(iconComida2);
+                        Painel.add(animalPet);
                         Painel.add(buttonEngrenagem);
                         Painel.add(iconSede);
                         Painel.add(textSede);
@@ -155,6 +166,7 @@ public class Paineljogo {
                 Painel.remove(textSede);
                 Painel.remove(iconFome);
                 Painel.remove(textFome);
+                Painel.remove(animalPet);
                 Painel.remove(iconEnergia);
                 Painel.remove(textEnergia);
                 painelStore.setBounds(13, 30, 560, 400); // X, Y, largura, altura
@@ -185,6 +197,7 @@ public class Paineljogo {
                 buttonVoltar.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
+                        animalPet.mudancaAcao(3, "RUNNING_JUMP_scaled", 320,256);
                         Painel.remove(painelConfig);
                         Painel.remove(buttonVoltar);
                         Painel.add(buttonEngrenagem);
@@ -233,7 +246,7 @@ public class Paineljogo {
                 }
         };
         timerSave.scheduleAtFixedRate(save,0L, 5 * 60 *1000L);*/
-        //considerações finais
+        //considerações finai
         Painel.add(textEnergia);
         Painel.add(buttonSair);
         Painel.add(buttonLoja);
