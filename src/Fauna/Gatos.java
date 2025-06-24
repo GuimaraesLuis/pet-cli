@@ -14,7 +14,7 @@ public class Gatos extends Animais{
     public Gatos(String nome) {
         this.setNome(nome);
         this.setFome(60);
-        this.setEnergia(100);
+        this.setEnergia(30);
         this.setSede(60);
         this.setTipo(TipoAnimal.Gato);
     }
