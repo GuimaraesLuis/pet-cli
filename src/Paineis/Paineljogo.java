@@ -66,7 +66,7 @@ public class Paineljogo {
                 animalPet = new CriarAnimation(6, "./Sprites/Cachorro/lobo 4x", 256, 256);
                 animalPet.setBounds(180, 280, 350, 350);
                 animalPet.setOpaque(false);
-                paineltransparente.painel(Painel, paineltransparente, animalPet, animal, textEnergia);
+                paineltransparente.painel(Painel, paineltransparente, animalPet, animal, textEnergia, d, textFome);
                 break;
             case Gato:
                 iconComida1 = new ScreenBuilder().iconBuilder("sardinha.png", new Rectangle(180, 240, 110, 80), new Rectangle(370, 436));// X, Y, largura, altura
@@ -81,7 +81,7 @@ public class Paineljogo {
                 animalPet = new CriarAnimation(8, "./Sprites/Gato/sprite_gato_2x", 320, 256);
                 animalPet.setBounds(130, 300, 350, 350);
                 animalPet.setOpaque(false);
-                paineltransparente.painel(Painel, paineltransparente, animalPet, animal, textEnergia);
+                paineltransparente.painel(Painel, paineltransparente, animalPet, animal, textEnergia, d, textFome);
 
                 break;
             default:

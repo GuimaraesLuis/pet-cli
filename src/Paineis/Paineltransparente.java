@@ -3,6 +3,7 @@ package Paineis;
 import Fauna.Animais;
 import Fauna.TipoAnimal;
 import Models.Rectangle;
+import Pessoa.Dono;
 import Sprites.CriarAnimation;
 
 import javax.swing.*;
@@ -44,7 +45,7 @@ public class Paineltransparente extends JPanel {
         super.paintComponent(g);
     }
 
-    public void painel(JFrame Painel, Paineltransparente p, CriarAnimation animalPet, Animais animais, JLabel textenergia) {
+    public void painel(JFrame Painel, Paineltransparente p, CriarAnimation animalPet, Animais animais, JLabel textenergia, Dono dono, JLabel fome) {
         Painel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -100,7 +101,7 @@ public class Paineltransparente extends JPanel {
                                         }
                                     });
                                     //comer
-                                    JButton buttonComer = new BotoesGenericos().buttonEat(animais, "osso", new Rectangle(70, 70, 200, 30), Painel);
+                                    JButton buttonComer = new BotoesGenericos().buttonEat(animais, "osso", new Rectangle(70, 70, 200, 30), Painel, dono, animalPet, 24, "./Sprites/Cachorro/HuskySniff_4x", 256, 256, fome, 6, "./Sprites/Cachorro/lobo 4x");
                                     buttonComer.addActionListener(new ActionListener() {
                                         @Override
                                         public void actionPerformed(ActionEvent e) {
