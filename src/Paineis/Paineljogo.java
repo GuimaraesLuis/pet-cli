@@ -21,8 +21,8 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class Paineljogo {
-    PainelConfig painelConfig;
-    PainelConfig painelStore;
+    PainelGenerico painelConfig;
+    PainelGenerico painelStore;
     Animation animation;
     private JLabel iconComida1;
     private JLabel iconComida2;
@@ -32,6 +32,7 @@ public class Paineljogo {
     private JButton buttonComprarBebida, buttonComprarBebida2, buttonComprar1, buttonComprar2;
 
     public void PanelGame(Animais animal, JFrame Painel, Dono d) {
+
         Paineltransparente paineltransparente = new Paineltransparente(new Color(0xD3D3D3), 0.75f);
         JLabel iconFome = new ScreenBuilder().iconBuilder("fome.png", new Rectangle(40, 40, 120, 10), new Rectangle(30, 30));
         JLabel textFome = new ScreenBuilder().textBuilder(animal.getFome() + "%", new Rectangle(100, 100, 165, -15), 18, null);
@@ -63,8 +64,9 @@ public class Paineljogo {
                 buttonComprarBebida = new BotoesGenericos().buttonComprarAgua(new Rectangle(110, 40, 155, 315), d, new Agua(), labelBemVindo);
                 buttonComprarBebida2 = new BotoesGenericos().buttonComprarAgua(new Rectangle(110, 40, 360, 315), d, new AguaCoco(), labelBemVindo);
                 animalPet = new CriarAnimation(6, "./Sprites/Cachorro/lobo 4x", 256, 256);
-                animalPet.setBounds(300, 300, 350, 350);
+                animalPet.setBounds(180, 280, 350, 350);
                 animalPet.setOpaque(false);
+                paineltransparente.painel(Painel, paineltransparente, animalPet, animal, textEnergia);
                 break;
             case Gato:
                 iconComida1 = new ScreenBuilder().iconBuilder("sardinha.png", new Rectangle(180, 240, 110, 80), new Rectangle(370, 436));// X, Y, largura, altura
@@ -88,8 +90,8 @@ public class Paineljogo {
         buttonLoja.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                painelStore = new PainelConfig(30, 30, new Color(0xD3D3D3));
-                PainelConfig painelPesquisa = new PainelConfig(30, 30, new Color(0xB7B7B7));
+                painelStore = new PainelGenerico(30, 30, new Color(0xD3D3D3));
+                PainelGenerico painelPesquisa = new PainelGenerico(30, 30, new Color(0xB7B7B7));
                 painelPesquisa.setBounds(13, 30, 50, 400);
                 JButton button = new ScreenBuilder().buttonBilder(new Rectangle(30, 30, 22, 40), null, new Color(0xB7B7B7), null, new ImageIcon("./imagens/fechar.png"));
                 //barra lateral
@@ -211,7 +213,7 @@ public class Paineljogo {
                         Painel.repaint();
                     }
                 });
-                painelConfig = new PainelConfig(30, 30, new Color(0x555554));
+                painelConfig = new PainelGenerico(30, 30, new Color(0x555554));
                 Painel.add(buttonVoltar);
                 Painel.add(painelConfig);
                 Painel.remove(buttonEngrenagem);

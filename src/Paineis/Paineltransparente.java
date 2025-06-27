@@ -1,6 +1,7 @@
 package Paineis;
 
 import Fauna.Animais;
+import Fauna.TipoAnimal;
 import Models.Rectangle;
 import Sprites.CriarAnimation;
 
@@ -44,48 +45,94 @@ public class Paineltransparente extends JPanel {
     }
 
     public void painel(JFrame Painel, Paineltransparente p, CriarAnimation animalPet, Animais animais, JLabel textenergia) {
-        Paineltransparente finalP = p;
-
         Painel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-                if (paineltransparente == null) {
-                    if (e.getX() >= 252 && e.getX() <= 346) {
-                        if (e.getY() >= 427 && e.getY() <= 517) {
-                            paineltransparente = new Paineltransparente(new Color(0xD3D3D3), 0.75f);
-                            JButton buttonSleep = new BotoesGenericos().buttonSleep(new Rectangle(70,70,200, 200), animais, animalPet, "sleppcat", Painel, textenergia);
-                            buttonSleep.addActionListener(new ActionListener() {
-                                @Override
-                                public void actionPerformed(ActionEvent e) {
+                TipoAnimal tipoAnimal = animais.getTipo();
+                switch (tipoAnimal) {
+                    case Gato:
+                        if (paineltransparente == null) {
+                            if (e.getX() >= 252 && e.getX() <= 346) {
+                                if (e.getY() >= 427 && e.getY() <= 517) {
+                                    paineltransparente = new Paineltransparente(new Color(0xD3D3D3), 0.75f);
+                                    JButton buttonSleep = new BotoesGenericos().buttonSleep(new Rectangle(70, 70, 200, 200), animais, animalPet, "sleppcat", Painel, textenergia, "./Sprites/Gato/sprite_gato_2x", "./Sprites/Gato/SLEEP_4x", 8, 320, 256, 320);
+                                    buttonSleep.addActionListener(new ActionListener() {
+                                        @Override
+                                        public void actionPerformed(ActionEvent e) {
+                                            Painel.remove(paineltransparente);
+                                            Painel.repaint();
+                                            paineltransparente = null;
+                                        }
+                                    });
+                                    paineltransparente.add(buttonSleep);
+                                    paineltransparente.setBounds(130, 270, 310, 310);
+                                    Painel.add(paineltransparente);
+                                    Painel.add(animalPet);
+                                    Painel.repaint();
+                                }
+                            } else {
+
+                            }
+                        } else {
+                            if (e.getX() >= 252 && e.getX() <= 346) {
+                                if (e.getY() >= 427 && e.getY() <= 517) {
                                     Painel.remove(paineltransparente);
                                     Painel.repaint();
                                     paineltransparente = null;
                                 }
-                            });
-                            paineltransparente.add(buttonSleep);
-                            System.out.println("Clicou no gato!");
-                            System.out.println("X:" + e.getX() + "Y:" + e.getY());
-                            paineltransparente.setBounds(130, 270, 310, 310);
-                            Painel.add(paineltransparente);
-                            Painel.add(animalPet);
-                            Painel.repaint();
+                            }
                         }
-                    } else {
-                        System.out.println("Clicou fora do gato!");
-                        System.out.println("X:" + e.getX() + "Y:" + e.getY());
-                    }
-                } else {
-                    if (e.getX() >= 252 && e.getX() <= 346) {
-                        if (e.getY() >= 427 && e.getY() <= 517) {
-                            System.out.println("Fecharr");
-                            Painel.remove(paineltransparente);
-                            Painel.repaint();
-                            paineltransparente = null;
+                        break;
+                    case Cachorro:
+                        if (paineltransparente == null) {
+                            if (e.getX() >= 254 && e.getX() <= 379) {
+                                if (e.getY() >= 453 && e.getY() <= 556) {
+                                    paineltransparente = new Paineltransparente(new Color(0xD3D3D3), 0.75f);
+                                    //dormir
+                                    JButton buttonSleep = new BotoesGenericos().buttonSleep(new Rectangle(70, 70, 200, 200), animais, animalPet, "dogSleep", Painel, textenergia, "./Sprites/Cachorro/lobo 4x", "./Sprites/Cachorro/HuskySleep_4x", 6, 256 , 256, 256);
+                                    buttonSleep.addActionListener(new ActionListener() {
+                                        @Override
+                                        public void actionPerformed(ActionEvent e) {
+                                            Painel.remove(paineltransparente);
+                                            Painel.repaint();
+                                            paineltransparente = null;
+                                        }
+                                    });
+                                    //comer
+                                    JButton buttonComer = new BotoesGenericos().buttonEat(animais, "osso", new Rectangle(70, 70, 200, 30), Painel);
+                                    buttonComer.addActionListener(new ActionListener() {
+                                        @Override
+                                        public void actionPerformed(ActionEvent e) {
+                                            Painel.remove(paineltransparente);
+                                            Painel.repaint();
+                                            paineltransparente = null;
+                                        }
+                                    });
+
+                                    paineltransparente.add(buttonComer);
+                                    paineltransparente.add(buttonSleep);
+                                    paineltransparente.setBounds(130, 270, 310, 310);
+                                    Painel.add(paineltransparente);
+                                    Painel.add(animalPet);
+                                    Painel.repaint();
+                                }
+                            }
+                        } else {
+                            if (e.getX() >= 254 && e.getX() <= 379) {
+                                if (e.getY() >= 453 && e.getY() <= 556) {
+                                    Painel.remove(paineltransparente);
+                                    Painel.repaint();
+                                    paineltransparente = null;
+                                }
+                            }
                         }
-                    }
+                        break;
+                    default:
+                        return;
                 }
             }
         });
+
     }
 }

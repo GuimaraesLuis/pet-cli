@@ -1,13 +1,11 @@
 package Paineis;
 import javax.swing.*;
-import javax.swing.border.Border;
-import java.awt.geom.RoundRectangle2D;
 import java.awt.*;
-public class PainelConfig extends JPanel{
+public class PainelGenerico extends JPanel{
     private int arcWidth;
     private int arcHeight;
     private Color backgroundColor;
-    public PainelConfig(int arcWidth, int arcHeight, Color backgroundColor){
+    public PainelGenerico(int arcWidth, int arcHeight, Color backgroundColor){
         this.arcWidth = arcWidth;
         this.arcHeight = arcHeight;
         this.backgroundColor = backgroundColor;
