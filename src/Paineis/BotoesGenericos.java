@@ -125,7 +125,7 @@ public class BotoesGenericos {
         return buttonAnimacao;
     }
 
-    public JButton buttonEat(Animais animais, String imagem, Rectangle rectangle, JFrame Painel, Dono dono, CriarAnimation criarAnimation, int frames, String files, int w, int h, JLabel textfome, int CenasIDLE, String CaminhoIDLE){
+    public JButton buttonEat(Animais animais, String imagem, Rectangle rectangle, JFrame Painel, Dono dono, CriarAnimation criarAnimation, int frames, String files, int w, int h, JLabel textfome, int CenasIDLE, String CaminhoIDLE, JLabel textSede){
         ImageIcon icon = new ImageIcon("./imagens/" + imagem + ".png");
         JButton buttonComer = new ScreenBuilder().buttonBilder(rectangle, null, null, null, icon);
         buttonComer.setBackground(new Color(0, 0, 0, 0));
@@ -133,22 +133,26 @@ public class BotoesGenericos {
             @Override
             public void actionPerformed(ActionEvent e) {
                 JButton iComida1, iComida2, iBebida1, iBebida2;
+                JLabel textComida1, textComida2, textBebida1, textbebida2;
+                int valorC1, valorC2, valorB1, ValorB2;
                 JLabel poteComida = new ScreenBuilder().iconBuilder("BOWL_4x.png", new Rectangle(40, 40, 343, 512), new Rectangle(50, 50));
                 if(animais.getFome() <= 60 || animais.getSede() <= 60){
                     PainelGenerico painelInventario = new PainelGenerico(30, 30, new Color(0xD3D3D3));
-                    painelInventario.setBounds(13, 80, 560, 400); // X, Y, largura, altura
+                    painelInventario.setBounds(13, 80, 560, 400);
+                    HashMap<String, Integer> inventario = dono.getInventario();
                     TipoAnimal tipoAnimal = animais.getTipo();
                     switch (tipoAnimal){
                         case Cachorro:
+                            valorC1 = inventario.get("Filé de Frango");
+                            painelInventario.add(new ScreenBuilder().textBuilder(String.valueOf(valorC1), new Rectangle(100, 100, 225, 105), 18, Color.white));
                             iComida1 =  new ScreenBuilder().buttonBilder(new Rectangle(160, 230, 110, -50), null, null, null, new ImageIcon("./imagens/InventarioFile.png"));
                             iComida1.setBackground(new Color(0, 0, 0, 0));
                             iComida1.addActionListener(new ActionListener() {
                                 @Override
                                 public void actionPerformed(ActionEvent e) {
-                                    HashMap<String, Integer> inventario = dono.getInventario();
-                                    if(inventario.get("Filé de Frango") != null) {
+                                    if(inventario.get("Filé de Frango") >= 1) {
                                         if(animais.getFome() < 50) {
-                                            inventario.remove("Filé de Frango", 1);
+                                            inventario.put("Filé de Frango", valorC1 - 1);
                                             criarAnimation.mudancaAcao(frames, files, w, h);
 
                                             Timer timer = new Timer();
@@ -187,15 +191,149 @@ public class BotoesGenericos {
                                 }
                             });
 
-
+                            valorC2 = inventario.get("Ração Pedigree");
+                            painelInventario.add(new ScreenBuilder().textBuilder(String.valueOf(valorC2), new Rectangle(100, 100, 425, 105), 18, Color.white));
                             iComida2 = new ScreenBuilder().buttonBilder(new Rectangle(160, 230, 310, -50), null, null, null, new ImageIcon("./imagens/InventarioRacao.png"));
                             iComida2.setBackground(new Color(0, 0, 0, 0));
+                            iComida2.addActionListener(new ActionListener() {
+                                @Override
+                                public void actionPerformed(ActionEvent e) {
+                                    if(inventario.get("Ração Pedigree") >= 1) {
+                                        if(animais.getFome() < 50) {
+                                            inventario.put("Ração Pedigree", valorC2 - 1);
+                                            criarAnimation.mudancaAcao(frames, files, w, h);
 
-                            iBebida1 = new ScreenBuilder().buttonBilder(new Rectangle(160, 230, 310, 140), null, null, null, new ImageIcon("./imagens/InventarioAgua.png"));
+                                            Timer timer = new Timer();
+                                            timer.scheduleAtFixedRate(new TimerTask() {
+                                                @Override
+                                                public void run() {
+                                                    if (rotacao < 60) {
+                                                        rotacao++;rotacao++;rotacao++;rotacao++;rotacao++;
+                                                        animais.setFome(Math.min(100, animais.getFome() + 5));
+                                                        SwingUtilities.invokeLater(() -> {
+                                                            new ScreenBuilder().atualizar(animais, animais.getFome(), textfome);
+                                                        });
+                                                    } else {
+                                                        timer.cancel();
+                                                        SwingUtilities.invokeLater(() -> {
+                                                            Painel.remove(poteComida);
+                                                            criarAnimation.mudancaAcao(CenasIDLE, CaminhoIDLE, w, 256);
+                                                        });
+                                                    }
+                                                }
+                                            }, 0, 1000); // atualiza a cada 1 segundo
+
+                                            Painel.add(poteComida, 2);
+                                            Painel.remove(painelInventario);
+                                            Painel.repaint();
+                                        }else{
+                                            System.out.println("seu animal nn esta com fome!");
+                                            Painel.remove(painelInventario);
+                                            Painel.repaint();
+                                        }
+                                    }else{
+                                        System.out.println("Voce nn tem este item!");
+                                        Painel.remove(painelInventario);
+                                        Painel.repaint();
+                                    }
+                                }
+                            });
+
+                            valorB1 = inventario.get("Água de coco");
+                            painelInventario.add(new ScreenBuilder().textBuilder(String.valueOf(valorB1), new Rectangle(100, 100, 425, 295), 18, Color.white));
+                            iBebida1 = new ScreenBuilder().buttonBilder(new Rectangle(160, 230, 310, 140), null, null, null, new ImageIcon("./imagens/InventarioCoco.png"));
                             iBebida1.setBackground(new Color(0, 0, 0, 0));
+                            iBebida1.addActionListener(new ActionListener() {
+                                @Override
+                                public void actionPerformed(ActionEvent e) {
+                                    if(inventario.get("Água de coco") >= 1) {
+                                        if(animais.getSede() < 50) {
+                                            inventario.put("Água de coco", valorB1 - 1);
+                                            criarAnimation.mudancaAcao(frames, files, w, h);
 
-                            iBebida2 = new ScreenBuilder().buttonBilder(new Rectangle(160, 230, 110, 140), null, null, null, new ImageIcon("./imagens/InventarioCoco.png"));
+                                            Timer timer = new Timer();
+                                            timer.scheduleAtFixedRate(new TimerTask() {
+                                                @Override
+                                                public void run() {
+                                                    if (rotacao < 60) {
+                                                        rotacao++;rotacao++;rotacao++;rotacao++;rotacao++;
+                                                        animais.setSede(Math.min(100, animais.getSede() + 5));
+                                                        SwingUtilities.invokeLater(() -> {
+                                                            new ScreenBuilder().atualizar(animais, animais.getSede(), textSede);
+                                                        });
+                                                    } else {
+                                                        timer.cancel();
+                                                        SwingUtilities.invokeLater(() -> {
+                                                            Painel.remove(poteComida);
+                                                            criarAnimation.mudancaAcao(CenasIDLE, CaminhoIDLE, w, 256);
+                                                        });
+                                                    }
+                                                }
+                                            }, 0, 1000); // atualiza a cada 1 segundo
+
+                                            Painel.add(poteComida, 2);
+                                            Painel.remove(painelInventario);
+                                            Painel.repaint();
+                                        }else{
+                                            System.out.println("seu animal nn esta com sede!");
+                                            Painel.remove(painelInventario);
+                                            Painel.repaint();
+                                        }
+                                    }else{
+                                        System.out.println("Voce nn tem este item!");
+                                        Painel.remove(painelInventario);
+                                        Painel.repaint();
+                                    }
+                                }
+                            });
+
+                            ValorB2 = inventario.get("Água Potável");
+                            painelInventario.add(new ScreenBuilder().textBuilder(String.valueOf(ValorB2), new Rectangle(100, 100, 225, 295), 18, Color.white));
+                            iBebida2 = new ScreenBuilder().buttonBilder(new Rectangle(160, 230, 110, 140), null, null, null, new ImageIcon("./imagens/InventarioAgua.png"));
                             iBebida2.setBackground(new Color(0, 0, 0, 0));
+                            iBebida2.addActionListener(new ActionListener() {
+                                @Override
+                                public void actionPerformed(ActionEvent e) {
+                                    if(inventario.get("Água Potável") >= 1) {
+                                        if(animais.getSede() < 50) {
+                                            inventario.put("Água Potável", ValorB2 - 1);
+                                            criarAnimation.mudancaAcao(frames, files, w, h);
+
+                                            Timer timer = new Timer();
+                                            timer.scheduleAtFixedRate(new TimerTask() {
+                                                @Override
+                                                public void run() {
+                                                    if (rotacao < 30) {
+                                                        rotacao++;rotacao++;rotacao++;rotacao++;rotacao++;
+                                                        animais.setSede(Math.min(100, animais.getSede() + 5));
+                                                        SwingUtilities.invokeLater(() -> {
+                                                            new ScreenBuilder().atualizar(animais, animais.getSede(), textSede);
+                                                        });
+                                                    } else {
+                                                        timer.cancel();
+                                                        SwingUtilities.invokeLater(() -> {
+                                                            Painel.remove(poteComida);
+                                                            criarAnimation.mudancaAcao(CenasIDLE, CaminhoIDLE, w, 256);
+                                                        });
+                                                    }
+                                                }
+                                            }, 0, 1000); // atualiza a cada 1 segundo
+
+                                            Painel.add(poteComida, 2);
+                                            Painel.remove(painelInventario);
+                                            Painel.repaint();
+                                        }else{
+                                            System.out.println("seu animal nn esta com sede!");
+                                            Painel.remove(painelInventario);
+                                            Painel.repaint();
+                                        }
+                                    }else{
+                                        System.out.println("Voce nn tem este item!");
+                                        Painel.remove(painelInventario);
+                                        Painel.repaint();
+                                    }
+                                }
+                            });
 
                             painelInventario.add(iComida1);
                             painelInventario.add(iComida2);
@@ -205,7 +343,208 @@ public class BotoesGenericos {
                             Painel.repaint();
                             break;
                         case Gato:
+                            valorC1 = inventario.get("Sardinha");
+                            painelInventario.add(new ScreenBuilder().textBuilder(String.valueOf(valorC1), new Rectangle(100, 100, 225, 105), 18, Color.white));
+                            iComida1 =  new ScreenBuilder().buttonBilder(new Rectangle(160, 230, 110, -50), null, null, null, new ImageIcon("./imagens/InventarioSardinha.png"));
+                            iComida1.setBackground(new Color(0, 0, 0, 0));
+                            iComida1.addActionListener(new ActionListener() {
+                                @Override
+                                public void actionPerformed(ActionEvent e) {
+                                    if(inventario.get("Sardinha") >= 1) {
+                                        if(animais.getFome() < 50) {
+                                            inventario.put("Sardinha", valorC1 - 1);
+                                            poteComida.setBounds(40, 230, 343, 512);
+                                            criarAnimation.mudancaAcao(frames, files, w, h);
 
+                                            Timer timer = new Timer();
+                                            timer.scheduleAtFixedRate(new TimerTask() {
+                                                @Override
+                                                public void run() {
+                                                    if (rotacao < 30) {
+                                                        rotacao++;rotacao++;rotacao++;rotacao++;rotacao++;
+                                                        animais.setFome(Math.min(100, animais.getFome() + 5));
+                                                        SwingUtilities.invokeLater(() -> {
+                                                            new ScreenBuilder().atualizar(animais, animais.getFome(), textfome);
+                                                        });
+                                                    } else {
+                                                        timer.cancel();
+                                                        SwingUtilities.invokeLater(() -> {
+                                                            Painel.remove(poteComida);
+                                                            criarAnimation.mudancaAcao(CenasIDLE, CaminhoIDLE, w, 256);
+                                                        });
+                                                    }
+                                                }
+                                            }, 0, 1000); // atualiza a cada 1 segundo
+
+                                            Painel.add(poteComida, 2);
+                                            Painel.remove(painelInventario);
+                                            Painel.repaint();
+                                        }else{
+                                            System.out.println("seu animal nn esta com fome!");
+                                            Painel.remove(painelInventario);
+                                            Painel.repaint();
+                                        }
+                                    }else{
+                                        System.out.println("Voce nn tem este item!");
+                                        Painel.remove(painelInventario);
+                                        Painel.repaint();
+                                    }
+                                }
+                            });
+
+                            valorC2 = inventario.get("Ração Del Gatto");
+                            painelInventario.add(new ScreenBuilder().textBuilder(String.valueOf(valorC2), new Rectangle(100, 100, 425, 105), 18, Color.white));
+                            iComida2 = new ScreenBuilder().buttonBilder(new Rectangle(160, 230, 310, -50), null, null, null, new ImageIcon("./imagens/InventarioRacaoCat.png"));
+                            iComida2.setBackground(new Color(0, 0, 0, 0));
+                            iComida2.addActionListener(new ActionListener() {
+                                @Override
+                                public void actionPerformed(ActionEvent e) {
+                                    if(inventario.get("Ração Del Gatto") >= 1) {
+                                        if(animais.getFome() < 50) {
+                                            poteComida.setBounds(40, 230, 343, 512);
+                                            inventario.put("Ração Del Gatto", valorC2 - 1);
+                                            criarAnimation.mudancaAcao(frames, files, w, h);
+
+                                            Timer timer = new Timer();
+                                            timer.scheduleAtFixedRate(new TimerTask() {
+                                                @Override
+                                                public void run() {
+                                                    if (rotacao < 60) {
+                                                        rotacao++;rotacao++;rotacao++;rotacao++;rotacao++;
+                                                        animais.setFome(Math.min(100, animais.getFome() + 5));
+                                                        SwingUtilities.invokeLater(() -> {
+                                                            new ScreenBuilder().atualizar(animais, animais.getFome(), textfome);
+                                                        });
+                                                    } else {
+                                                        timer.cancel();
+                                                        SwingUtilities.invokeLater(() -> {
+                                                            Painel.remove(poteComida);
+                                                            criarAnimation.mudancaAcao(CenasIDLE, CaminhoIDLE, w, 256);
+                                                        });
+                                                    }
+                                                }
+                                            }, 0, 1000); // atualiza a cada 1 segundo
+
+                                            Painel.add(poteComida, 2);
+                                            Painel.remove(painelInventario);
+                                            Painel.repaint();
+                                        }else{
+                                            System.out.println("seu animal nn esta com fome!");
+                                            Painel.remove(painelInventario);
+                                            Painel.repaint();
+                                        }
+                                    }else{
+                                        System.out.println("Voce nn tem este item!");
+                                        Painel.remove(painelInventario);
+                                        Painel.repaint();
+                                    }
+                                }
+                            });
+
+                            valorB1 = inventario.get("Leite");
+                            painelInventario.add(new ScreenBuilder().textBuilder(String.valueOf(valorB1), new Rectangle(100, 100, 425, 295), 18, Color.white));
+                            iBebida1 = new ScreenBuilder().buttonBilder(new Rectangle(160, 230, 310, 140), null, null, null, new ImageIcon("./imagens/InventarioLeite.png"));
+                            iBebida1.setBackground(new Color(0, 0, 0, 0));
+                            iBebida1.addActionListener(new ActionListener() {
+                                @Override
+                                public void actionPerformed(ActionEvent e) {
+                                    if(inventario.get("Leite") >= 1) {
+                                        if(animais.getSede() < 50) {
+                                            inventario.put("Leite", valorB1 - 1);
+                                            poteComida.setBounds(40, 230, 343, 512);
+                                            criarAnimation.mudancaAcao(frames, files, w, h);
+
+                                            Timer timer = new Timer();
+                                            timer.scheduleAtFixedRate(new TimerTask() {
+                                                @Override
+                                                public void run() {
+                                                    if (rotacao < 60) {
+                                                        rotacao++;rotacao++;rotacao++;rotacao++;rotacao++;
+                                                        animais.setSede(Math.min(100, animais.getSede() + 5));
+                                                        SwingUtilities.invokeLater(() -> {
+                                                            new ScreenBuilder().atualizar(animais, animais.getSede(), textSede);
+                                                        });
+                                                    } else {
+                                                        timer.cancel();
+                                                        SwingUtilities.invokeLater(() -> {
+                                                            Painel.remove(poteComida);
+                                                            criarAnimation.mudancaAcao(CenasIDLE, CaminhoIDLE, w, 256);
+                                                        });
+                                                    }
+                                                }
+                                            }, 0, 1000); // atualiza a cada 1 segundo
+
+                                            Painel.add(poteComida, 2);
+                                            Painel.remove(painelInventario);
+                                            Painel.repaint();
+                                        }else{
+                                            System.out.println("seu animal nn esta com sede!");
+                                            Painel.remove(painelInventario);
+                                            Painel.repaint();
+                                        }
+                                    }else{
+                                        System.out.println("Voce nn tem este item!");
+                                        Painel.remove(painelInventario);
+                                        Painel.repaint();
+                                    }
+                                }
+                            });
+
+                            ValorB2 = inventario.get("Água Potável");
+                            painelInventario.add(new ScreenBuilder().textBuilder(String.valueOf(ValorB2), new Rectangle(100, 100, 225, 295), 18, Color.white));
+                            iBebida2 = new ScreenBuilder().buttonBilder(new Rectangle(160, 230, 110, 140), null, null, null, new ImageIcon("./imagens/InventarioAgua.png"));
+                            iBebida2.setBackground(new Color(0, 0, 0, 0));
+                            iBebida2.addActionListener(new ActionListener() {
+                                @Override
+                                public void actionPerformed(ActionEvent e) {
+                                    if(inventario.get("Água Potável") >= 1) {
+                                        if(animais.getSede() < 50) {
+                                            inventario.put("Água Potável", ValorB2 - 1);
+                                            poteComida.setBounds(40, 230, 343, 512);
+                                            criarAnimation.mudancaAcao(frames, files, w, h);
+
+                                            Timer timer = new Timer();
+                                            timer.scheduleAtFixedRate(new TimerTask() {
+                                                @Override
+                                                public void run() {
+                                                    if (rotacao < 30) {
+                                                        rotacao++;rotacao++;rotacao++;rotacao++;rotacao++;
+                                                        animais.setSede(Math.min(100, animais.getSede() + 5));
+                                                        SwingUtilities.invokeLater(() -> {
+                                                            new ScreenBuilder().atualizar(animais, animais.getSede(), textSede);
+                                                        });
+                                                    } else {
+                                                        timer.cancel();
+                                                        SwingUtilities.invokeLater(() -> {
+                                                            Painel.remove(poteComida);
+                                                            criarAnimation.mudancaAcao(CenasIDLE, CaminhoIDLE, w, 256);
+                                                        });
+                                                    }
+                                                }
+                                            }, 0, 1000); // atualiza a cada 1 segundo
+
+                                            Painel.add(poteComida, 2);
+                                            Painel.remove(painelInventario);
+                                            Painel.repaint();
+                                        }else{
+                                            System.out.println("seu animal nn esta com sede!");
+                                            Painel.remove(painelInventario);
+                                            Painel.repaint();
+                                        }
+                                    }else{
+                                        System.out.println("Voce nn tem este item!");
+                                        Painel.remove(painelInventario);
+                                        Painel.repaint();
+                                    }
+                                }
+                            });
+
+                            painelInventario.add(iComida1);
+                            painelInventario.add(iComida2);
+                            painelInventario.add(iBebida1);
+                            painelInventario.add(iBebida2);
+                            Painel.add(painelInventario, 0);
+                            Painel.repaint();
                             break;
                         default:
 

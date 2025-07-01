@@ -45,11 +45,12 @@ public class Paineltransparente extends JPanel {
         super.paintComponent(g);
     }
 
-    public void painel(JFrame Painel, Paineltransparente p, CriarAnimation animalPet, Animais animais, JLabel textenergia, Dono dono, JLabel fome) {
+    public void painel(JFrame Painel, Paineltransparente p, CriarAnimation animalPet, Animais animais, JLabel textenergia, Dono dono, JLabel fome, JLabel sede) {
         Painel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
+                JButton buttonComer;
                 TipoAnimal tipoAnimal = animais.getTipo();
                 switch (tipoAnimal) {
                     case Gato:
@@ -66,6 +67,19 @@ public class Paineltransparente extends JPanel {
                                             paineltransparente = null;
                                         }
                                     });
+
+                                    //comer
+                                    buttonComer = new BotoesGenericos().buttonEat(animais, "comida-de-gato", new Rectangle(70, 70, 200, 30), Painel, dono, animalPet, 7, "./Sprites/Gato/EAT_4x", 320, 256, fome, 8, "./Sprites/Gato/sprite_gato_2x", sede);
+                                    buttonComer.addActionListener(new ActionListener() {
+                                        @Override
+                                        public void actionPerformed(ActionEvent e) {
+                                            Painel.remove(paineltransparente);
+                                            Painel.repaint();
+                                            paineltransparente = null;
+                                        }
+                                    });
+
+                                    paineltransparente.add(buttonComer);
                                     paineltransparente.add(buttonSleep);
                                     paineltransparente.setBounds(130, 270, 310, 310);
                                     Painel.add(paineltransparente);
@@ -100,16 +114,16 @@ public class Paineltransparente extends JPanel {
                                             paineltransparente = null;
                                         }
                                     });
-                                    //comer
-                                    JButton buttonComer = new BotoesGenericos().buttonEat(animais, "osso", new Rectangle(70, 70, 200, 30), Painel, dono, animalPet, 24, "./Sprites/Cachorro/HuskySniff_4x", 256, 256, fome, 6, "./Sprites/Cachorro/lobo 4x");
-                                    buttonComer.addActionListener(new ActionListener() {
-                                        @Override
-                                        public void actionPerformed(ActionEvent e) {
-                                            Painel.remove(paineltransparente);
-                                            Painel.repaint();
-                                            paineltransparente = null;
-                                        }
-                                    });
+
+                                             buttonComer = new BotoesGenericos().buttonEat(animais, "osso", new Rectangle(70, 70, 200, 30), Painel, dono, animalPet, 24, "./Sprites/Cachorro/HuskySniff_4x", 256, 256, fome, 6, "./Sprites/Cachorro/lobo 4x", sede);
+                                            buttonComer.addActionListener(new ActionListener() {
+                                                @Override
+                                                public void actionPerformed(ActionEvent e) {
+                                                    Painel.remove(paineltransparente);
+                                                    Painel.repaint();
+                                                    paineltransparente = null;
+                                                }
+                                            });
 
                                     paineltransparente.add(buttonComer);
                                     paineltransparente.add(buttonSleep);
@@ -130,7 +144,6 @@ public class Paineltransparente extends JPanel {
                         }
                         break;
                     default:
-                        return;
                 }
             }
         });

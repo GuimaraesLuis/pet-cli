@@ -1,5 +1,6 @@
 package Pessoa;
 import Fauna.Animais;
+import Fauna.TipoAnimal;
 
 import java.util.HashMap;
 
@@ -14,6 +15,23 @@ public class Dono {
     }
 
     public Dono(String name, String senha, Animais pet, HashMap<String, Integer > inventario) {
+        TipoAnimal tipo = pet.getTipo();
+        switch (tipo){
+            case Cachorro:
+                inventario.put("Filé de Frango", 0);
+                inventario.put("Ração Pedigree", 0);
+                inventario.put("Água Potável", 0);
+                inventario.put("Água de coco", 0);
+                break;
+            case Gato:
+                inventario.put("Água Potável", 0);
+                inventario.put("Leite", 0);
+                inventario.put("Ração Del Gatto", 0);
+                inventario.put("Sardinha", 0);
+                break;
+            default:
+        }
+
         this.name = name;
         this.senha = senha;
         this.pet = pet;
