@@ -554,4 +554,187 @@ public class BotoesGenericos {
         });
         return buttonComer;
     }
+
+    public JButton buttonAnim(Dono dono, Animais animais, String imagem, Rectangle rectangle, CriarAnimation criarAnimation, String acao1, String acao2, String acao3, String acao4, String acao5, int frames1, int fremes2, int frames3, int frames4, int frames5, int w, int h, int CenasIDLE, String CaminhoIDLE, JLabel textSede, JLabel textFome, JLabel textEnergia){
+        ImageIcon icon = new ImageIcon("./imagens/" + imagem + ".png");
+        JButton buttonBrincar = new ScreenBuilder().buttonBilder(rectangle, null, null, null, icon);
+        buttonBrincar.setBackground(new Color(0, 0, 0, 0));
+        buttonBrincar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int max = 5;
+                int min = 1;
+                int range = max - min + 1;
+                int random = (int) (Math.random() * range) + min;
+
+                if (animais.getEnergia() >= 20) {
+                    System.out.println(random);
+                switch (random) {
+                    case 1:
+                        criarAnimation.mudancaAcao(frames1, acao1, w, h);
+                        Timer timer = new Timer();
+                        timer.scheduleAtFixedRate(new TimerTask() {
+                            @Override
+                            public void run() {
+                                if (rotacao < 30) {
+                                    rotacao++;
+                                    rotacao++;
+                                    rotacao++;
+                                    rotacao++;
+                                    rotacao++;
+                                    animais.setSede(animais.getSede() - 2);
+                                    animais.setFome(animais.getFome() - 3);
+                                    animais.setEnergia(animais.getEnergia() - 3);
+                                    dono.setCoins(dono.getCoins() + 10);
+                                    SwingUtilities.invokeLater(() -> {
+                                        new ScreenBuilder().atualizar(animais, animais.getSede(), textSede);
+                                        new ScreenBuilder().atualizar(animais, animais.getEnergia(), textEnergia);
+                                        new ScreenBuilder().atualizar(animais, animais.getFome(), textFome);
+                                    });
+                                } else {
+                                    timer.cancel();
+                                    SwingUtilities.invokeLater(() -> {
+                                        criarAnimation.mudancaAcao(CenasIDLE, CaminhoIDLE, w, 256);
+                                    });
+                                }
+                            }
+                        }, 0, 1000); // atualiza a cada 1 segundo
+
+                        break;
+                    case 2:
+                        criarAnimation.mudancaAcao(fremes2, acao2, w, h);
+
+                        Timer timer2 = new Timer();
+                        timer2.scheduleAtFixedRate(new TimerTask() {
+                            @Override
+                            public void run() {
+                                if (rotacao < 30) {
+                                    rotacao++;
+                                    rotacao++;
+                                    rotacao++;
+                                    rotacao++;
+                                    rotacao++;
+                                    animais.setSede(animais.getSede() - 2);
+                                    animais.setFome(animais.getFome() - 3);
+                                    animais.setEnergia(animais.getEnergia() - 3);
+                                    dono.setCoins(dono.getCoins() + 10);
+                                    SwingUtilities.invokeLater(() -> {
+                                        new ScreenBuilder().atualizar(animais, animais.getSede(), textSede);
+                                        new ScreenBuilder().atualizar(animais, animais.getEnergia(), textEnergia);
+                                        new ScreenBuilder().atualizar(animais, animais.getFome(), textFome);
+                                    });
+                                } else {
+                                    timer2.cancel();
+                                    SwingUtilities.invokeLater(() -> {
+                                        criarAnimation.mudancaAcao(CenasIDLE, CaminhoIDLE, w, 256);
+                                    });
+                                }
+                            }
+                        }, 0, 1000); // atualiza a cada 1 segundo
+
+                        break;
+                    case 3:
+                        criarAnimation.mudancaAcao(frames3, acao3, w, h);
+
+                        Timer timer3 = new Timer();
+                        timer3.scheduleAtFixedRate(new TimerTask() {
+                            @Override
+                            public void run() {
+                                if (rotacao < 30) {
+                                    rotacao++;
+                                    rotacao++;
+                                    rotacao++;
+                                    rotacao++;
+                                    rotacao++;
+                                    animais.setSede(animais.getSede() - 2);
+                                    animais.setFome(animais.getFome() - 3);
+                                    animais.setEnergia(animais.getEnergia() - 3);
+                                    dono.setCoins(dono.getCoins() + 10);
+                                    SwingUtilities.invokeLater(() -> {
+                                        new ScreenBuilder().atualizar(animais, animais.getSede(), textSede);
+                                        new ScreenBuilder().atualizar(animais, animais.getEnergia(), textEnergia);
+                                        new ScreenBuilder().atualizar(animais, animais.getFome(), textFome);
+                                    });
+                                } else {
+                                    timer3.cancel();
+                                    SwingUtilities.invokeLater(() -> {
+                                        criarAnimation.mudancaAcao(CenasIDLE, CaminhoIDLE, w, 256);
+                                    });
+                                }
+                            }
+                        }, 0, 1000); // atualiza a cada 1 segundo
+
+                        break;
+                    case 4:
+                        criarAnimation.mudancaAcao(frames4, acao4, w, h);
+
+                        Timer timer4 = new Timer();
+                        timer4.scheduleAtFixedRate(new TimerTask() {
+                            @Override
+                            public void run() {
+                                if (rotacao < 30) {
+                                    rotacao++;
+                                    rotacao++;
+                                    rotacao++;
+                                    rotacao++;
+                                    rotacao++;
+                                    animais.setSede(animais.getSede() - 2);
+                                    animais.setFome(animais.getFome() - 3);
+                                    animais.setEnergia(animais.getEnergia() - 3);
+                                    dono.setCoins(dono.getCoins() + 10);
+                                    SwingUtilities.invokeLater(() -> {
+                                        new ScreenBuilder().atualizar(animais, animais.getSede(), textSede);
+                                        new ScreenBuilder().atualizar(animais, animais.getEnergia(), textEnergia);
+                                        new ScreenBuilder().atualizar(animais, animais.getFome(), textFome);
+                                    });
+                                } else {
+                                    timer4.cancel();
+                                    SwingUtilities.invokeLater(() -> {
+                                        criarAnimation.mudancaAcao(CenasIDLE, CaminhoIDLE, w, 256);
+                                    });
+                                }
+                            }
+                        }, 0, 1000); // atualiza a cada 1 segundo
+
+                        break;
+                    case 5:
+                        criarAnimation.mudancaAcao(frames5, acao5, w, h);
+
+                        Timer timer5 = new Timer();
+                        timer5.scheduleAtFixedRate(new TimerTask() {
+                            @Override
+                            public void run() {
+                                if (rotacao < 30) {
+                                    rotacao++;
+                                    rotacao++;
+                                    rotacao++;
+                                    rotacao++;
+                                    rotacao++;
+                                    animais.setSede(animais.getSede() - 2);
+                                    animais.setFome(animais.getFome() - 3);
+                                    animais.setEnergia(animais.getEnergia() - 3);
+                                    dono.setCoins(dono.getCoins() + 10);
+                                    SwingUtilities.invokeLater(() -> {
+                                        new ScreenBuilder().atualizar(animais, animais.getSede(), textSede);
+                                        new ScreenBuilder().atualizar(animais, animais.getEnergia(), textEnergia);
+                                        new ScreenBuilder().atualizar(animais, animais.getFome(), textFome);
+                                    });
+                                } else {
+                                    timer5.cancel();
+                                    SwingUtilities.invokeLater(() -> {
+                                        criarAnimation.mudancaAcao(CenasIDLE, CaminhoIDLE, w, 256);
+                                    });
+                                }
+                            }
+                        }, 0, 1000); // atualiza a cada 1 segundo
+
+                        break;
+                    default:
+                }
+            }
+
+            }
+        });
+        return buttonBrincar;
+    }
 }

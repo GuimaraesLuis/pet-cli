@@ -51,6 +51,7 @@ public class Paineltransparente extends JPanel {
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
                 JButton buttonComer;
+                JButton buttonBrincar;
                 TipoAnimal tipoAnimal = animais.getTipo();
                 switch (tipoAnimal) {
                     case Gato:
@@ -79,6 +80,20 @@ public class Paineltransparente extends JPanel {
                                         }
                                     });
 
+                                    //Brincar
+                                    buttonBrincar = new BotoesGenericos().buttonAnim(dono, animais, "brinquedo-de-gato", new Rectangle(70, 70, 50, 30), animalPet, "./Sprites/Gato/SCARE_4x",
+                                            "./Sprites/Gato/ATTACK_1_4x", "./Sprites/Gato/ATTACK_2_4x", "./Sprites/Gato/WALK_4x", "./Sprites/Gato/LICK_4x", 11, 8, 8,3, 15, 320, 256, 8, "./Sprites/Gato/sprite_gato_2x", sede, fome, textenergia);
+                                    buttonBrincar.addActionListener(new ActionListener() {
+                                        @Override
+                                        public void actionPerformed(ActionEvent e) {
+                                            Painel.remove(paineltransparente);
+                                            Painel.repaint();
+                                            paineltransparente = null;
+                                        }
+                                    });
+
+
+                                    paineltransparente.add(buttonBrincar);
                                     paineltransparente.add(buttonComer);
                                     paineltransparente.add(buttonSleep);
                                     paineltransparente.setBounds(130, 270, 310, 310);
@@ -115,6 +130,7 @@ public class Paineltransparente extends JPanel {
                                         }
                                     });
 
+                                    //comer
                                              buttonComer = new BotoesGenericos().buttonEat(animais, "osso", new Rectangle(70, 70, 200, 30), Painel, dono, animalPet, 24, "./Sprites/Cachorro/HuskySniff_4x", 256, 256, fome, 6, "./Sprites/Cachorro/lobo 4x", sede);
                                             buttonComer.addActionListener(new ActionListener() {
                                                 @Override
@@ -124,6 +140,8 @@ public class Paineltransparente extends JPanel {
                                                     paineltransparente = null;
                                                 }
                                             });
+
+                                            //brincar
 
                                     paineltransparente.add(buttonComer);
                                     paineltransparente.add(buttonSleep);
