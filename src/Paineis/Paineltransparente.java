@@ -142,7 +142,19 @@ public class Paineltransparente extends JPanel {
                                             });
 
                                             //brincar
+                                    buttonBrincar = new BotoesGenericos().buttonAnim(dono, animais, "bola-de-cachorro", new Rectangle(70, 70, 50, 30), animalPet, "./Sprites/Cachorro/HuskyAttack_4x",
+                                            "./Sprites/Cachorro/Huskybark_4x", "./Sprites/Cachorro/HuskyLieDown_4x", "./Sprites/Cachorro/HuskySitting_4x", "./Sprites/Cachorro/HuskyRun_4x", 15, 10, 12,8, 6, 256, 256, 6, "./Sprites/Cachorro/lobo 4x", sede, fome, textenergia);
+                                    buttonBrincar.addActionListener(new ActionListener() {
+                                        @Override
+                                        public void actionPerformed(ActionEvent e) {
+                                            Painel.remove(paineltransparente);
+                                            Painel.repaint();
+                                            paineltransparente = null;
+                                        }
+                                    });
 
+
+                                    paineltransparente.add(buttonBrincar);
                                     paineltransparente.add(buttonComer);
                                     paineltransparente.add(buttonSleep);
                                     paineltransparente.setBounds(130, 270, 310, 310);

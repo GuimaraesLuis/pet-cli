@@ -1,15 +1,12 @@
 package Paineis;
-
 import Bebidas.Bebida;
 import Comidas.Alimento;
 import Fauna.Animais;
-import Fauna.AnimaisActions;
 import Fauna.TipoAnimal;
 import Models.Rectangle;
 import Pessoa.Dono;
 import Sprites.CriarAnimation;
 import Utils.ScreenBuilder;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -66,7 +63,7 @@ public class BotoesGenericos {
                 if (dono.getCoins() >= bebida.getCusto()) {
                     dono.setCoins(dono.getCoins() - bebida.getCusto());
                     dono.getInventario().put(bebida.getNome(), dono.getInventario().getOrDefault(bebida.getNome(), 0) + 1);
-                    label.setBounds(85, 80, 510, 110);
+                    label.setBounds(85, 40, 510, 110);
                     label.setText("Compra efetuada com sucesso!");
                 } else {
                     label.setBounds(165, 40, 410, 110);

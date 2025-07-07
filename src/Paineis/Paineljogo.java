@@ -1,5 +1,6 @@
 package Paineis;
 import BancoDados.AttBancoDados;
+import BancoDados.RemovBanco;
 import Bebidas.Agua;
 import Bebidas.AguaCoco;
 import Bebidas.Leite;
@@ -30,6 +31,7 @@ public class Paineljogo {
     private JLabel iconBebida2;
     private CriarAnimation animalPet;
     private JButton buttonComprarBebida, buttonComprarBebida2, buttonComprar1, buttonComprar2;
+    private int rotacao;
 
     public void PanelGame(Animais animal, JFrame Painel, Dono d) {
 
@@ -103,7 +105,8 @@ public class Paineljogo {
                 buttonBebidas.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        labelBemVindo.setBounds(145, 40, 410, 110);
+                        labelBemVindo.setText("Bebidas");
+                        labelBemVindo.setBounds(240, 40, 410, 110);
                         Painel.add(buttonComprarBebida2);
                         Painel.add(iconBebida1);
                         Painel.add(iconBebida2);
@@ -150,7 +153,8 @@ public class Paineljogo {
                 buttonComidas.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        labelBemVindo.setBounds(145, 40, 410, 110);
+                        labelBemVindo.setText("Comidas");
+                        labelBemVindo.setBounds(240, 40, 410, 110);
                         Painel.remove(buttonComprarBebida2);
                         Painel.remove(iconBebida1);
                         Painel.remove(iconBebida2);
@@ -163,6 +167,8 @@ public class Paineljogo {
                         Painel.repaint();
                     }
                 });
+                labelBemVindo.setText("Bem-vindo a pet-store");
+                labelBemVindo.setBounds(145, 180, 410, 110);
                 Painel.remove(buttonEngrenagem);
                 Painel.remove(buttonLoja);
                 Painel.remove(buttonEngrenagem);
@@ -242,47 +248,33 @@ public class Paineljogo {
         };
         timer.scheduleAtFixedRate(tarefa, 0L, 3 * 60 * 1000L);
 
-        /*Timer timerSave = new Timer();
-            TimerTask save = new TimerTask() {
-                @Override
-                public void run() {
-                    new AttBancoDados().atualizarContaPet(d);
-                }
-        };
-        timerSave.scheduleAtFixedRate(save,0L, 5 * 60 *1000L);*/
-        //painel interacao
-
-       /* Painel.addMouseListener(new MouseAdapter() {
+        //prova de vida
+        Timer timer3 = new Timer();
+        timer3.scheduleAtFixedRate(new TimerTask() {
             @Override
-            public void mouseClicked(MouseEvent e) {
-                super.mouseClicked(e);
-                if (paineltransparente == null) {
-                    if (e.getX() >= 252 && e.getX() <= 346) {
-                        if (e.getY() >= 427 && e.getY() <= 517) {
-                            paineltransparente = new Paineltransparente();
-                            System.out.println("Clicou no gato!");
-                            System.out.println("X:" + e.getX() + "Y:" + e.getY());
-                            paineltransparente.setBounds(130, 140, 310, 310);
-                            Painel.add(paineltransparente);
-                            Painel.add(animalPet);
-                            Painel.repaint();
-                        }
-                    } else {
-                        System.out.println("Clicou fora do gato!");
-                        System.out.println("X:" + e.getX() + "Y:" + e.getY());
+            public void run() {
+                if(rotacao < 40) {
+                    if (animal.getEnergia() == 0 || animal.getSede() == 0 || animal.getFome() == 0) {
+                        rotacao++;
+                        rotacao++;
+                        rotacao++;
+                        rotacao++;
+                        rotacao++;
+                        animalPet.mudancaAcao(4, "./Sprites/Gato/HURT_4x", 320, 256);
                     }
-                } else {
-                    if (e.getX() >= 252 && e.getX() <= 346) {
-                        if (e.getY() >= 427 && e.getY() <= 517) {
-                            System.out.println("Fecharr");
-                            Painel.remove(paineltransparente);
-                            Painel.repaint();
-                            paineltransparente = null;
-                        }
-                    }
+                }else{
+                    timer3.cancel();
+                    SwingUtilities.invokeLater(() -> {
+                        animalPet.mudancaAcao(9, "./Sprites/Gato/DEATH_4x", 320, 256);
+                    });
+
+                    new RemovBanco().RemovPessoa(d);
+                    new RemovBanco().RmemovAnimal(animal);
+                    Painel.dispose();
+                    System.exit(0);
                 }
             }
-        });*/
+        }, 0, 1000); // atualiza a cada 1 segundo
 
         Painel.add(textEnergia);
         Painel.add(iconEnergia);

@@ -14,6 +14,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class Main {
     public static void main(String[] args) {
@@ -162,6 +164,7 @@ public class Main {
 
             }
         });
+
         textNamePet.setOpaque(true);
         textNamePet.setBackground(new Color(0xF4F9FE));
         painelCriarPet.add(textNamePet);
